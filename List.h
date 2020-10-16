@@ -164,7 +164,7 @@ void erase(int x, List *pL)
 //Lấy giá trị trung bình của các phần tử trong danh sách
 float getAvg(List L)
 {
-	int avg = 0;
+	float avg = 0;
 	Position i;
 	for(i = 0; i < L.Last; i++)
 	{
