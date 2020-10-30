@@ -52,14 +52,16 @@ void printList(List L)
 }
 
 //Hàm nhập danh sách
-void readList(int n, List *pL)
+void readList(List *pL)
 {
-	Position i;
-	pL->Last = n;
-	for(i = 0; i < pL->Last; i++)
-	{
-		scanf("%d", &pL->Elements[i]);
-	}
+    makenullList(pL);
+    int n, x;
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &x);
+        insertList(x, pL->Last + 1, pL);
+    }
 }
 
 //Kiểm tra phần tử x có nằm trong danh sách L hay không?
@@ -113,7 +115,7 @@ void sort(List *pL)
 //Chèn n phần tử x nhập từ bàn phím vào danh sách
 void readSet(List *pL)
 {
-	makenullList(L);
+	makenullList(pL);
 	int n, x;
 	Position i;
 	scanf("%d", &n);
@@ -121,7 +123,7 @@ void readSet(List *pL)
 	{
 	    scanf("%d", &x);
 	    if(!member(x,*pL))
-		    insertSet(x, L);
+		    insertSet(x, pL);
 	}
 }
 
