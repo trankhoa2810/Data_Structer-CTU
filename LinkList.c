@@ -240,23 +240,39 @@ void sort(List *pL)
 	}
 }
 
+List intersection(List L1, List L2)
+{
+	List L;
+	makenullList(&L);
+	Position P;
+	P = L1->Next;
+	while(P->Next != NULL)
+	{
+		if(member(P->Element, L2))
+			append(P->Element, &L);
+		P = P->Next;
+	}
+	return L;
+}
+
 int main()
 {
-	List L;	
+	List L1,L2,L;
+	int i;
+		
 	Position p;
-
-	L=(struct Node*)malloc(sizeof(struct Node));
-	L->Next=NULL;
-	int i;	
-	for(i=5;i>=1;i--)
-	  append(2*i, &L);
-
-	sort(&L);
+	makenullList(&L1);
+	makenullList(&L2);
+	for(i=1;i<=3;i++)
+		append(i, &L1);
+	for(i=-1;i<=2;i++)
+		append(i, &L2);
+	L = intersection(L1,L2);
 	p=L;
 	while(p->Next!=NULL)
 	{
-	  printf("%d ",p->Next->Element);
-	  p=p->Next;
-	 }
+			printf("%d ",p->Next->Element);
+			p=p->Next;
+	}
 	return 0;
 }
