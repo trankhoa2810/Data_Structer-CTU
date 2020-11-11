@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 
 typedef int ElementType;
 struct Node{
@@ -68,12 +68,9 @@ Position locate(ElementType x, List L)
 	int flag = 0;
 	while(P->Next != NULL && flag == 0)
 	{
-		if(P->Element == x)
-		{
+		if(P->Next->Element == x)
 			flag = 1;
-			break;
-		}
-		P = P->Next;
+		else P = P->Next;
 	}
 	return P;
 }
@@ -83,6 +80,7 @@ void deleteList(Position P, List *pL)
 	if(P->Next != NULL)
 	{
 		Position Temp;
+		Temp = (struct Node*)malloc(sizeof(struct Node));
 		Temp = P->Next;
 		P->Next = Temp->Next;
 		free(Temp);
@@ -129,19 +127,15 @@ void erase(ElementType x, List *pL)
 
 void append(ElementType x, List *pL)
 {
-	Position T, K;
-	K = (struct Node*)malloc(sizeof(struct Node));
-	T = *pL;
-	K->Element = x;
-	while(T->Next != NULL)
+	Position P, Q;
+	makenullList(&P);
+	P->Element = x;
+	Q = *pL;
+	while(Q->Next != NULL)
 	{
-		T = T->Next;
+		Q = Q->Next;
 	}
-	if(T->Next == NULL)
-	{
-		T->Next = K;
-		K->Next = NULL;
-	}
+	Q->Next = P;
 }
 
 List unionSet(List L1, List L2)
@@ -257,22 +251,33 @@ List intersection(List L1, List L2)
 
 int main()
 {
-	List L1,L2,L;
-	int i;
+	
+	List L;
+	Position p,q;
 		
-	Position p;
-	makenullList(&L1);
-	makenullList(&L2);
-	for(i=1;i<=3;i++)
-		append(i, &L1);
-	for(i=-1;i<=2;i++)
-		append(i, &L2);
-	L = intersection(L1,L2);
+	L=(struct Node*)malloc(sizeof(struct Node));	
+	L->Next=NULL;
+
+	p=L;
+	q=(struct Node*)malloc(sizeof(struct Node));	
+	q->Element=5;
+	q->Next=NULL;
+	p->Next = q;
+		
+	q=(struct Node*)malloc(sizeof(struct Node));	
+	q->Element=50;
+	q->Next=p->Next;
+	p->Next = q;
+		
+	deleteList(q,&L);
+			
+		
 	p=L;
 	while(p->Next!=NULL)
 	{
-			printf("%d ",p->Next->Element);
-			p=p->Next;
+		printf("%d ",p->Next->Element);
+		p=p->Next;
 	}
+	printf("\n");
 	return 0;
 }
