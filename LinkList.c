@@ -205,9 +205,19 @@ void printOddNumbers(List L)
 
 float getAvg(List L)
 {
-	float sum = 0;
-
-	return sum;
+    Position P;
+    P = L;
+	float AVG = 0;
+	float count = 0;
+	while(P->Next != NULL)
+	{
+		AVG += P->Next->Element;
+		count++;
+		P = P->Next;
+	}
+	if(count != 0)
+		return AVG / count;
+	return -10000;
 }
 
 void swap(int *P, int *Q)
@@ -248,6 +258,22 @@ List intersection(List L1, List L2)
 	}
 	return L;
 }
+
+List difference(List L1, List L2)
+{
+	List L;
+	makenullList(&L);
+	Position P;
+	P = L1;
+	while(P->Next != NULL)
+	{
+		if(!member(P->Next->Element, L2))
+			append(P->Next->Element, &L);
+		P = P->Next;
+	}
+	return L;
+}
+
 
 int main()
 {
