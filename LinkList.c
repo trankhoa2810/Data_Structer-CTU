@@ -138,19 +138,24 @@ void append(ElementType x, List *pL)
 	Q->Next = P;
 }
 
-List unionSet(List L1, List L2)
-{
-	List L3;
-	makenullList(&L3);
-	L3 = L1;
-	Position P = L2;
-	while(P->Next != NULL)
-	{
-		if(!member(P->Next->Element, L1))
-			append(P->Next->Element, &L3);
-		P = P->Next;
+List unionSet(List L1, List L2){
+	List L;
+	makenullList(&L);
+	Position P = L1;
+	while(P->Next != NULL){
+		append(P->Next->Element, &L);
+		P = P->Next;	
 	}
-	return L3;
+
+	P = L2;
+
+	while(P->Next != NULL){
+		if(!member(P->Next->Element, L))
+			append(P->Next->Element, &L);
+		P = P->Next;	
+	}
+
+	return L;
 }
 
 void addFirst(int x, List *pL)
