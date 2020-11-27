@@ -115,15 +115,23 @@ void normalize(List *pL)
 	}
 }
 
-void erase(ElementType x, List *pL)
-{
-    Position P, Q;
-    Q = locate(x, *pL);
-    P = endList(*pL);
-	if(Q == P)
-	    printf("Not found %d\n", x);
-	else deleteList(locate(x, *pL), pL);
+void erase(int x, List *pL){
+	Position P = locate(x, *pL);
+	if(P->Next != NULL){
+		deleteList(locate(x, *pL), pL);
+	}
+	else printf("Not found %d\n", x);
 }
+
+// void erase(ElementType x, List *pL)
+// {
+//     Position P, Q;
+//     Q = locate(x, *pL);
+//     P = endList(*pL);
+// 	if(Q == P)
+// 	    printf("Not found %d\n", x);
+// 	else deleteList(locate(x, *pL), pL);
+// }
 
 void append(ElementType x, List *pL)
 {
@@ -181,6 +189,16 @@ List readSet()
 		i++;
 	}
 	return L;
+}
+
+void readList(List *pL){
+	int n, i, x;
+	scanf("%d", &n);
+	makenullList(pL);
+	for(i = 0; i < n; i++){
+		scanf("%d", &x);
+		append(x, pL);
+	}
 }
 
 void copyEvenNumbers(List L1, List *pL2)
